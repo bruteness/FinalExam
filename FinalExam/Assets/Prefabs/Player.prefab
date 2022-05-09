@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781202080344419304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.397, y: -0.404, z: 0.378}
+  m_LocalPosition: {x: 0.05, y: -0.23, z: -1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,7 +78,7 @@ Light:
   m_Cookie: {fileID: 2800000, guid: b9e6bb9aff92ff9478ae4846c4623165, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -119,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781202080344475952}
   m_LocalRotation: {x: 0.00000018076764, y: -0.00000027110084, z: 0.5547719, w: -0.8320025}
-  m_LocalPosition: {x: 0.389, y: -0.381, z: 0.378}
+  m_LocalPosition: {x: 0.041999996, y: -0.20699999, z: -1.1000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -172,7 +172,7 @@ Light:
   m_Cookie: {fileID: 2800000, guid: fea639295310f2f40b3d56414e10c337, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -213,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781202080344527228}
   m_LocalRotation: {x: -0, y: -0, z: -0.9726949, w: -0.23208755}
-  m_LocalPosition: {x: 0.428, y: -0.359, z: 0.378}
+  m_LocalPosition: {x: 0.081, y: -0.18499997, z: -1.1000001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -266,7 +266,7 @@ Light:
   m_Cookie: {fileID: 2800000, guid: 05238b0c1b0c9954cb8f2c7a1d89afab, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 7745651574057118280}
   - component: {fileID: 7745651574057118281}
   m_Layer: 0
-  m_Name: DepthCamera
+  m_Name: Depth Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,7 +509,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 631
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -662,8 +662,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b661e2a05d5822b419d784dc8f139eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _mouseSensitivity: 1
+  _playerLights:
+  - {fileID: 1781202080344419304}
+  - {fileID: 1781202080344475952}
+  - {fileID: 1781202080344527228}
+  - {fileID: 7744159453794055987}
+  _lightDamage: 20
+  _moveSpeed: 5
+  _mouseSensitivity: 2
+  controller: {fileID: 0}
 --- !u!1001 &7745651574668421493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -673,7 +680,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1920776105025094, guid: 917b3e362cb87ec4c9f396c33a955af2, type: 3}
       propertyPath: m_Name
-      value: SM_PolygonPrototype_Primitive_Cone_01P
+      value: PlayerDamageHitbox
       objectReference: {fileID: 0}
     - target: {fileID: 1920776105025094, guid: 917b3e362cb87ec4c9f396c33a955af2, type: 3}
       propertyPath: m_IsActive

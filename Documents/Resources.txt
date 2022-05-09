@@ -4,3 +4,11 @@ Night Skybox - ripgwhitelock, https://assetstore.unity.com/packages/2d/textures-
 Flashlight - RRFreelance / PiXelBurner, https://assetstore.unity.com/packages/3d/props/electronics/flashlight-2-0-tactical-42301
 PolygonPrimativeCone - Synty Studios, https://assetstore.unity.com/packages/3d/props/polygon-starter-pack-low-poly-3d-art-by-synty-156819
 Simple Cars Pack - MyxerMan, https://assetstore.unity.com/packages/3d/vehicles/land/simple-cars-pack-97669
+Scream_horror1 - Vinrax, https://opengameart.org/content/horror-scream1
+Horrors font - Darrell Flood, https://www.dafont.com/horrors.font
+Bloody Office font - Woodcutter, https://www.dafont.com/bloody-office.font
+NoScary font - Linafis Studio, https://www.dafont.com/noscary.font
+Well Done SFX - qubodup, https://opengameart.org/content/well-done
+Monster_sfx_2 - Ogrebane, https://opengameart.org/content/monster-sound-effects-2
+Simple City pack plain - 255 pixel studios, https://assetstore.unity.com/packages/3d/environments/urban/simple-city-pack-plain-100348
+Chainlink Fences - Kobra Game Studios, https://assetstore.unity.com/packages/3d/chainlink-fences-73107#publisher

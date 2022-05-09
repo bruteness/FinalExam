@@ -1,58 +1,82 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
-    public static PlayerController _instance;
+public class PlayerController : MonoBehaviour {
+    public static PlayerController instance;
 
+    [SerializeField] private GameObject[] _playerLights;
     [SerializeField] private float _lightDamage;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _mouseSensitivity;
 
-    private CharacterController _controller;
+    public CharacterController controller;
     private Camera _playerCamera;
     private float _cameraVerticalAngle;
+    private float _characterVelocityY;
+    private float _gravityDownForce = -1f;
+    private bool _isDead;
+    private bool _flashlightOn = true;
 
     public float LightDamage { get { return _lightDamage; } }
+    public bool IsDead { get { return _isDead; } set { _isDead = value; } }
 
-    void Awake()
-    {
-        if (_instance != null)
+    void Awake() {
+        if (instance != null)
             Destroy(gameObject);
         else
-            _instance = this;
+            instance = this;
         DontDestroyOnLoad(gameObject);
 
-        _controller = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
         _playerCamera = transform.Find("Main Camera").GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
-    {
+    void Update() {
         //Handle the movement for the player
+        if (_isDead) { GameManager.instance.SetGameOver(); return; }
+        if (GameManager.instance.didGameWin) return;
         Movement();
         HandleCharacterLook();
+        HandlePageLook();
+        HandleFlashlight();
     }
 
-    private void Movement()
-    {
+    private void HandleFlashlight() {
+        if (Input.GetKeyDown(KeyCode.F)) {
+            if (_flashlightOn) {
+                foreach (GameObject g in _playerLights) {
+                    g.SetActive(false);
+                }
+            } else if (Input.GetKeyDown(KeyCode.F) && !_flashlightOn) {
+                foreach (GameObject g in _playerLights) {
+                    g.SetActive(true);
+                }
+            }
+            _flashlightOn = !_flashlightOn;
+        }
+    }
+
+    private void Movement() {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")); //Predefined axes in Unity linked to WASD controllers
         move = transform.TransformDirection(move);
 
-        _controller.Move(move * Time.deltaTime * _moveSpeed); //Moves character in the given direction from our move vector3
+        // Add gravity
+        _characterVelocityY += _gravityDownForce * Time.deltaTime;
+        move.y = _characterVelocityY;
 
+        // Move the character controller
+        controller.Move(move * Time.deltaTime * _moveSpeed); //Moves character in the given direction from our move vector3
     }
 
-    private void HandleCharacterLook()
-    {
+    private void HandleCharacterLook() {
         float lookX = Input.GetAxisRaw("Mouse X");
         float lookY = Input.GetAxisRaw("Mouse Y");
 
         // Rotate the transform with the input speed around its local Y axis
-        transform.Rotate(new Vector3(0f, lookX * _mouseSensitivity, 0f), Space.Self);
+        transform.Rotate(new Vector3(0f, lookX * _mouseSensitivity * Time.deltaTime * 100, 0f), Space.Self);
 
         // Add vertical inputs to the camera's vertical angle
-        _cameraVerticalAngle -= lookY * _mouseSensitivity;
+        _cameraVerticalAngle -= lookY * _mouseSensitivity * Time.deltaTime * 100;
 
         // Limit the camera's vertical angle to min/max
         _cameraVerticalAngle = Mathf.Clamp(_cameraVerticalAngle, -89f, 89f);
@@ -60,4 +84,18 @@ public class PlayerController : MonoBehaviour
         // Apply the vertical angle as a local rotation to the camera transform along its right axis (makes it pivot up and down)
         _playerCamera.transform.localEulerAngles = new Vector3(_cameraVerticalAngle, 0, 0);
     }
+
+    private void HandlePageLook() {
+        if (Input.GetKeyUp(KeyCode.E)) {
+            Ray ray = _playerCamera.ViewportPointToRay(new Vector3(.5f, .5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit) && hit.transform.name.Contains("Note")) {
+                GameManager.instance.currentNotesFound++;
+                GameManager.instance.noteCanvas.SetActive(true);
+                Destroy(GameObject.Find(hit.transform.name));
+            }
+        }
+    }
+
 }
