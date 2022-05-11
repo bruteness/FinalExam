@@ -5,8 +5,11 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private GameObject[] _playerLights;
     [SerializeField] private float _lightDamage;
+    [SerializeField] private float _flashlightBattery;
+    [SerializeField] private float _decreaseBatterySpeed;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _mouseSensitivity;
+    [SerializeField] private bool _flashlightOn = true;
 
     public CharacterController controller;
     private Camera _playerCamera;
@@ -14,9 +17,10 @@ public class PlayerController : MonoBehaviour {
     private float _characterVelocityY;
     private float _gravityDownForce = -1f;
     private bool _isDead;
-    private bool _flashlightOn = true;
 
     public float LightDamage { get { return _lightDamage; } }
+    public float FlashlightBattery { get { return _flashlightBattery; } }
+    public float FlashlightMaxBattery { get; set; }
     public bool IsDead { get { return _isDead; } set { _isDead = value; } }
 
     void Awake() {
@@ -29,6 +33,8 @@ public class PlayerController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
         _playerCamera = transform.Find("Main Camera").GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        FlashlightMaxBattery = FlashlightBattery;
     }
 
     void Update() {
@@ -42,17 +48,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void HandleFlashlight() {
-        if (Input.GetKeyDown(KeyCode.F)) {
-            if (_flashlightOn) {
-                foreach (GameObject g in _playerLights) {
-                    g.SetActive(false);
-                }
-            } else if (Input.GetKeyDown(KeyCode.F) && !_flashlightOn) {
-                foreach (GameObject g in _playerLights) {
-                    g.SetActive(true);
-                }
-            }
-            _flashlightOn = !_flashlightOn;
+
+        // Turn off the flashlight
+        if (Input.GetKeyDown(KeyCode.F) && _flashlightOn || _flashlightBattery <= 0) {
+            _flashlightOn = false;
+            // Turn on the flashlight
+        } else if (Input.GetKeyDown(KeyCode.F) && !_flashlightOn && _flashlightBattery > 0) {
+            _flashlightOn = true;
+        }
+        
+        // Choose whether to have the flashlight on or off
+        foreach (GameObject g in _playerLights) {
+            g.SetActive(_flashlightOn);
+        }
+
+        if (_flashlightOn && _flashlightBattery >= 0) {
+            _flashlightBattery -= _decreaseBatterySpeed * Time.deltaTime;
         }
     }
 
@@ -98,4 +109,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void AddBattery(float _batteryToAdd) {
+        _flashlightBattery += _batteryToAdd;
+        _flashlightBattery = _flashlightBattery < FlashlightMaxBattery ? _flashlightBattery : FlashlightMaxBattery;
+    }
 }

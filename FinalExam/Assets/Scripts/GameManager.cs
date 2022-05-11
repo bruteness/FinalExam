@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
 
     [Header("Player")]
     [SerializeField] private GameObject _playerSpawnPosition;
+    [SerializeField] private Slider _playerBatterySlider;
 
     [Header("Enemy")]
     [SerializeField] private GameObject _enemyPrefab;
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour {
     void Update() {
         // Update Notes Found
         _notesFoundTextUI.text = $"{currentNotesFound} / {_maxNotes}";
+        _playerBatterySlider.value = PlayerController.instance.FlashlightBattery / PlayerController.instance.FlashlightMaxBattery;
         if (currentNotesFound >= _maxNotes && !noteCanvas.activeInHierarchy)
             SetGameWin();
 
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour {
         if (_didGameOver && Input.GetKeyDown(KeyCode.Space))
             ResetGame();
 
+        // Quit Game
         if (didGameWin && Input.GetKeyDown(KeyCode.Space))
             Application.Quit();
     }
