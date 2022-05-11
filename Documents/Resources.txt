@@ -12,3 +12,5 @@ Well Done SFX - qubodup, https://opengameart.org/content/well-done
 Monster_sfx_2 - Ogrebane, https://opengameart.org/content/monster-sound-effects-2
 Simple City pack plain - 255 pixel studios, https://assetstore.unity.com/packages/3d/environments/urban/simple-city-pack-plain-100348
 Chainlink Fences - Kobra Game Studios, https://assetstore.unity.com/packages/3d/chainlink-fences-73107#publisher
+horror_sus_2 - migfus20, https://opengameart.org/content/horror-background-music-horror-piano
+dova_Eternal Terror_master - ISAo, https://opengameart.org/content/dark-horror-ambient-piano-choir

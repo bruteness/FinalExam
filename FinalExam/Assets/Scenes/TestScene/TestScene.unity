@@ -751,22 +751,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5806153323923722712, guid: 210943a30b7d63141abe09d6bceabe50, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806153323923722712, guid: 210943a30b7d63141abe09d6bceabe50, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806153323923722712, guid: 210943a30b7d63141abe09d6bceabe50, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806153323923722716, guid: 210943a30b7d63141abe09d6bceabe50, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5806153325259381008, guid: 210943a30b7d63141abe09d6bceabe50, type: 3}
       propertyPath: m_Name
       value: GameManager
